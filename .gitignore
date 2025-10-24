@@ -1,0 +1,62 @@
+# Visual Studio / .NET
+.vs/
+bin/
+obj/
+[Bb]uild/
+artifacts/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.pidb
+*.log
+
+# NuGet
+packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# VS Code (guardar solo configuraciones compartidas)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Node
+node_modules/
+
+# Publicación / empaquetado
+publish/
+*.Publish.xml
+
+# Bases de datos y caches locales
+*.db
+*.sqlite
+*.db-journal
+*.cache
+
+# Cobertura / pruebas
+coverage/
+*.coverage
+*.coveragexml
+*.trx
+
+# Archivos temporales / SO
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Archivos de configuración local / secretos
+secrets.json
+appsettings.*.Local.json
+*.usersecrets
+
+# Mantener archivos .getkeep si los usas para forzar directorios vacíos
+!**/.getkeep
