@@ -6,15 +6,15 @@ using ModelSecurityRepaso.Data.Interface;
 namespace ModelSecurityRepaso.Data.Implements
 {
     /// <summary>
-    /// Repositorio específico para operaciones con la entidad Role.
+    /// Repositorio específico para operaciones con la entidad RoleFormPermission.
     /// Extiende BaseData con métodos personalizados si es necesario.
     /// </summary>
-    public class RoleData : BaseData<Role>, IRoleData
+    public class RoleFormPermissionData : BaseData<RoleFormPermission>, IRoleFormPermissionData
     {
         /// <summary>
         /// Constructor que recibe el contexto de BD por inyección.
         /// </summary>
-        public RoleData(ApplicationDbContext context) : base(context) { }
+        public RoleFormPermissionData(ApplicationDbContext context) : base(context) { }
 
         // Métodos personalizados pueden agregarse aquí
     }

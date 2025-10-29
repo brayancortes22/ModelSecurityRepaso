@@ -1,6 +1,7 @@
 using ModelSecurityRepaso.Entity.Context;
 using ModelSecurityRepaso.Entity.Model;
 using ModelSecurityRepaso.Data.Implements.Base;
+using ModelSecurityRepaso.Data.Interface;
 
 namespace ModelSecurityRepaso.Data.Implements
 {
@@ -8,7 +9,7 @@ namespace ModelSecurityRepaso.Data.Implements
     /// Repositorio específico para operaciones con RefreshToken.
     /// Maneja la persistencia de tokens de renovación.
     /// </summary>
-    public class RefreshTokenData : BaseData<RefreshToken>
+    public class RefreshTokenData : BaseData<RefreshToken>, IRefreshTokenData
     {
         /// <summary>
         /// Constructor que recibe el contexto de BD por inyección.

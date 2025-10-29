@@ -1,6 +1,7 @@
 using ModelSecurityRepaso.Entity.Context;
 using ModelSecurityRepaso.Entity.Model;
 using ModelSecurityRepaso.Data.Implements.Base;
+using ModelSecurityRepaso.Data.Interface;
 
 namespace ModelSecurityRepaso.Data.Implements
 {
@@ -8,7 +9,7 @@ namespace ModelSecurityRepaso.Data.Implements
     /// Repositorio específico para operaciones con la entidad Form.
     /// Extiende BaseData con métodos personalizados si es necesario.
     /// </summary>
-    public class FormData : BaseData<Form>
+    public class FormData : BaseData<Form>, IFormData
     {
         /// <summary>
         /// Constructor que recibe el contexto de BD por inyección.

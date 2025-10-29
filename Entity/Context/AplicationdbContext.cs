@@ -49,7 +49,7 @@ namespace ModelSecurityRepaso.Entity.Context
         // Propiedades alias para acceso singular (compatibilidad con código existente)
         public DbSet<User> User => Users;
         public DbSet<Role> Role => Roles;
-        public DbSet<UserRole> UserRole => UserRoles;
+        public DbSet<UserRole> UserRol => UserRoles;
         public DbSet<RefreshToken> RefreshToken => RefreshTokens;
 
         /// <summary>

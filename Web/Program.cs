@@ -9,6 +9,7 @@ using ModelSecurityRepaso.Business.Implements.Security;
 using ModelSecurityRepaso.Business.Implements;
 using ModelSecurityRepaso.Business.Interface;
 using ModelSecurityRepaso.Data.Implements;
+using ModelSecurityRepaso.Data.Interface;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -84,10 +85,25 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 // Inyección de Dependencias - Data Layer
 // ========================================
 builder.Services.AddScoped<UserData>();
+builder.Services.AddScoped<IUserData, UserData>();
 builder.Services.AddScoped<RoleData>();
+builder.Services.AddScoped<IRoleData, RoleData>();
 builder.Services.AddScoped<FormData>();
+builder.Services.AddScoped<IFormData, FormData>();
 builder.Services.AddScoped<PermissionData>();
+builder.Services.AddScoped<IPermissionData, PermissionData>();
 builder.Services.AddScoped<RefreshTokenData>();
+builder.Services.AddScoped<IRefreshTokenData, RefreshTokenData>();
+builder.Services.AddScoped<FormModuleData>();
+builder.Services.AddScoped<IFormModuleData, FormModuleData>();
+builder.Services.AddScoped<ModuleData>();
+builder.Services.AddScoped<IModuleData, ModuleData>();
+builder.Services.AddScoped<PersonData>();
+builder.Services.AddScoped<IPersonData, PersonData>();
+builder.Services.AddScoped<RoleFormPermissionData>();
+builder.Services.AddScoped<IRoleFormPermissionData, RoleFormPermissionData>();
+builder.Services.AddScoped<UserRoleData>();
+builder.Services.AddScoped<IUserRoleData, UserRoleData>();
 
 // ========================================
 // Inyección de Dependencias - Business Layer
@@ -96,6 +112,12 @@ builder.Services.AddScoped<IUserBusiness, UserBusiness>();
 builder.Services.AddScoped<IRoleBusiness, RoleBusiness>();
 builder.Services.AddScoped<IFormBusiness, FormBusiness>();
 builder.Services.AddScoped<IPermissionBusiness, PermissionBusiness>();
+builder.Services.AddScoped<IRefreshTokenBusiness, RefreshTokenBusiness>();
+builder.Services.AddScoped<IFormModuleBusiness, FormModuleBusiness>();
+builder.Services.AddScoped<IModuleBusiness, ModuleBusiness>();
+builder.Services.AddScoped<IPersonBusiness, PersonBusiness>();
+builder.Services.AddScoped<IRoleFormPermissionBusiness, RoleFormPermissionBusiness>();
+builder.Services.AddScoped<IUserRoleBusiness, UserRoleBusiness>();
 
 // ========================================
 // AutoMapper

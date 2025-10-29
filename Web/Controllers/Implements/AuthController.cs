@@ -55,7 +55,7 @@ namespace ModelSecurityRepaso.Web.Controllers
                 return Unauthorized("Credenciales inválidas");
 
             // Obtener roles del usuario
-            var userRoles = _context.UserRole
+            var userRoles = _context.UserRol
                 .Where(ur => ur.UserId == user.Id)
                 .Join(_context.Role, ur => ur.RoleId, r => r.Id, (ur, r) => r.Name)
                 .ToList();
@@ -122,7 +122,7 @@ namespace ModelSecurityRepaso.Web.Controllers
                 return Unauthorized("Usuario no encontrado");
 
             // Obtener roles del usuario
-            var userRoles = _context.UserRole
+            var userRoles = _context.UserRol
                 .Where(ur => ur.UserId == user.Id)
                 .Join(_context.Role, ur => ur.RoleId, r => r.Id, (ur, r) => r.Name)
                 .ToList();
