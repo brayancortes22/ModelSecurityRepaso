@@ -30,13 +30,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     switch (dbProvider)
     {
         case "MySql":
-            options.UseMySql(connStr, ServerVersion.AutoDetect(connStr));
+            options.UseMySql(connStr, ServerVersion.AutoDetect(connStr), 
+                b => b.MigrationsAssembly("Web"));
             break;
         case "Postgres":
-            options.UseNpgsql(connStr);
+            options.UseNpgsql(connStr, 
+                b => b.MigrationsAssembly("Web"));
             break;
         case "SqlServer":
-            options.UseSqlServer(connStr);
+            options.UseSqlServer(connStr, 
+                b => b.MigrationsAssembly("Web"));
             break;
         default:
             throw new Exception("Proveedor de base de datos no soportado");
