@@ -1,11 +1,12 @@
 using System;
+using SystemException = System.Exception;
 
 namespace ModelSecurityRepaso.Utilities.Exceptions
 {
     /// <summary>
     /// Excepción base para todos los errores relacionados con la capa de datos.
     /// </summary>
-    public class DataException : Exception
+    public class DataException : SystemException
     {
         /// <summary>
         /// Inicializa una nueva instancia de <see cref="DataException"/> con un mensaje de error.
@@ -20,7 +21,7 @@ namespace ModelSecurityRepaso.Utilities.Exceptions
         /// </summary>
         /// <param name="message">El mensaje que describe el error.</param>
         /// <param name="innerException">La excepción que es la causa del error actual.</param>
-        public DataException(string message, Exception innerException) : base(message, innerException)
+        public DataException(string message, SystemException innerException) : base(message, innerException)
         {
         }
     }
@@ -43,7 +44,7 @@ namespace ModelSecurityRepaso.Utilities.Exceptions
         /// </summary>
         /// <param name="message">El mensaje que describe el error de conexión.</param>
         /// <param name="innerException">La excepción que es la causa del error actual.</param>
-        public DatabaseConnectionException(string message, Exception innerException) : base(message, innerException)
+        public DatabaseConnectionException(string message, SystemException innerException) : base(message, innerException)
         {
         }
     }
@@ -66,7 +67,7 @@ namespace ModelSecurityRepaso.Utilities.Exceptions
         /// </summary>
         /// <param name="message">El mensaje que describe el error de consulta.</param>
         /// <param name="innerException">La excepción que es la causa del error actual.</param>
-        public QueryExecutionException(string message, Exception innerException) : base(message, innerException)
+        public QueryExecutionException(string message, SystemException innerException) : base(message, innerException)
         {
         }
     }
@@ -89,7 +90,7 @@ namespace ModelSecurityRepaso.Utilities.Exceptions
         /// </summary>
         /// <param name="message">El mensaje que describe el error de concurrencia.</param>
         /// <param name="innerException">La excepción que es la causa del error actual.</param>
-        public ConcurrencyException(string message, Exception innerException) : base(message, innerException)
+        public ConcurrencyException(string message, SystemException innerException) : base(message, innerException)
         {
         }
     }
@@ -112,7 +113,7 @@ namespace ModelSecurityRepaso.Utilities.Exceptions
         /// </summary>
         /// <param name="message">El mensaje que describe la violación de integridad.</param>
         /// <param name="innerException">La excepción que es la causa del error actual.</param>
-        public DataIntegrityException(string message, Exception innerException) : base(message, innerException)
+        public DataIntegrityException(string message, SystemException innerException) : base(message, innerException)
         {
         }
     }

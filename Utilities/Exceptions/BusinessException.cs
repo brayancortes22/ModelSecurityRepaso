@@ -1,11 +1,12 @@
 using System;
+using SystemException = System.Exception;
 
 namespace ModelSecurityRepaso.Utilities.Exceptions
 {
     /// <summary>
     /// Excepción base para todos los errores relacionados con la capa de negocio.
     /// </summary>
-    public class BusinessException : Exception
+    public class BusinessException : SystemException
     {
         /// <summary>
         /// Inicializa una nueva instancia de <see cref="BusinessException"/> con un mensaje de error.
@@ -20,7 +21,7 @@ namespace ModelSecurityRepaso.Utilities.Exceptions
         /// </summary>
         /// <param name="message">El mensaje que describe el error.</param>
         /// <param name="innerException">La excepción que es la causa del error actual.</param>
-        public BusinessException(string message, Exception innerException) : base(message, innerException)
+        public BusinessException(string message, SystemException innerException) : base(message, innerException)
         {
         }
     }
@@ -66,7 +67,7 @@ namespace ModelSecurityRepaso.Utilities.Exceptions
         /// <param name="entityType">Tipo de entidad que no se encontró.</param>
         /// <param name="entityId">Identificador de la entidad buscada.</param>
         /// <param name="innerException">La excepción que es la causa del error actual.</param>
-        public EntityNotFoundException(string entityType, object entityId, Exception innerException)
+        public EntityNotFoundException(string entityType, object entityId, SystemException innerException)
             : base($"La entidad '{entityType}' con ID '{entityId}' no fue encontrada.", innerException)
         {
             EntityType = entityType;
@@ -108,7 +109,7 @@ namespace ModelSecurityRepaso.Utilities.Exceptions
         /// </summary>
         /// <param name="message">El mensaje que describe el error.</param>
         /// <param name="innerException">La excepción que es la causa del error actual.</param>
-        public ValidationException(string message, Exception innerException) : base(message, innerException)
+        public ValidationException(string message, SystemException innerException) : base(message, innerException)
         {
         }
     }
@@ -147,7 +148,7 @@ namespace ModelSecurityRepaso.Utilities.Exceptions
         /// </summary>
         /// <param name="message">El mensaje que describe el error.</param>
         /// <param name="innerException">La excepción que es la causa del error actual.</param>
-        public BusinessRuleViolationException(string message, Exception innerException) : base(message, innerException)
+        public BusinessRuleViolationException(string message, SystemException innerException) : base(message, innerException)
         {
         }
     }
@@ -192,7 +193,7 @@ namespace ModelSecurityRepaso.Utilities.Exceptions
         /// </summary>
         /// <param name="message">El mensaje que describe el error.</param>
         /// <param name="innerException">La excepción que es la causa del error actual.</param>
-        public UnauthorizedAccessBusinessException(string message, Exception innerException) : base(message, innerException)
+        public UnauthorizedAccessBusinessException(string message, SystemException innerException) : base(message, innerException)
         {
         }
     }
@@ -232,7 +233,7 @@ namespace ModelSecurityRepaso.Utilities.Exceptions
         /// <param name="serviceName">Nombre del servicio externo.</param>
         /// <param name="message">El mensaje que describe el error.</param>
         /// <param name="innerException">La excepción que es la causa del error actual.</param>
-        public ExternalServiceException(string serviceName, string message, Exception innerException)
+        public ExternalServiceException(string serviceName, string message, SystemException innerException)
             : base($"Error en el servicio externo '{serviceName}': {message}", innerException)
         {
             ServiceName = serviceName;

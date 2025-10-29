@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using Utilities.Exceptions;
+using ModelSecurityRepaso.Utilities.Exceptions;
 
-namespace Web.Controllers.Implements.Base
+namespace ModelSecurityRepaso.Web.Controllers.Implements.Base
 {
     /// <summary>
     /// Controlador base genérico para exponer endpoints CRUD estándar.

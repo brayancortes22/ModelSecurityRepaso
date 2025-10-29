@@ -1,7 +1,8 @@
 using ModelSecurityRepaso.Entity.Model;
 using ModelSecurityRepaso.Business.Implements.Base;
+using ModelSecurityRepaso.Business.Interface;
 using ModelSecurityRepaso.Data.Implements;
-using ModelSecurityRepaso.Utilities.Exception;
+using ModelSecurityRepaso.Utilities.Exceptions;
 
 namespace ModelSecurityRepaso.Business.Implements
 {
@@ -9,7 +10,7 @@ namespace ModelSecurityRepaso.Business.Implements
     /// Lógica de negocio para operaciones con User.
     /// Valida reglas de negocio antes de persistir.
     /// </summary>
-    public class UserBusiness : BaseBusiness<User>
+    public class UserBusiness : BaseBusiness<User>, IUserBusiness
     {
         private readonly UserData _userData;
 

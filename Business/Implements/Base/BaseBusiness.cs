@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Business.Implements.BaseBusiness
+namespace ModelSecurityRepaso.Business.Implements.Base
 {
     /// <summary>
     /// Clase base genérica para la lógica de negocio sobre cualquier entidad.
@@ -51,6 +51,19 @@ namespace Business.Implements.BaseBusiness
 
             // Aquí podrías validar reglas de negocio antes de agregar
             await _data.AddAsync(entity);
+        }
+
+        /// <summary>
+        /// Crea una nueva entidad en la base de datos y devuelve la entidad creada.
+        /// </summary>
+        public virtual async Task<T> CreateAsync(T entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity), "La entidad no puede ser nula.");
+
+            // Aquí podrías validar reglas de negocio antes de agregar
+            await _data.AddAsync(entity);
+            return entity;
         }
 
         /// <summary>
@@ -110,7 +123,7 @@ namespace Business.Implements.BaseBusiness
         /// <param name="operation">Función asíncrona que contiene la lógica a ejecutar dentro de la transacción.</param>
         public async Task ExecuteInTransactionAsync(Func<Task> operation)
         {
-            var context = _data._context;
+            var context = _data.Context;
             using (var transaction = await context.Database.BeginTransactionAsync())
             {
                 try
@@ -135,7 +148,7 @@ namespace Business.Implements.BaseBusiness
         /// <returns>El resultado de la operación.</returns>
         public async Task<TResult> ExecuteInTransactionAsync<TResult>(Func<Task<TResult>> operation)
         {
-            var context = _data._context;
+            var context = _data.Context;
             using (var transaction = await context.Database.BeginTransactionAsync())
             {
                 try

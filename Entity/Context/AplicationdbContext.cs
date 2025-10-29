@@ -46,6 +46,12 @@ namespace ModelSecurityRepaso.Entity.Context
         public DbSet<RoleFormPermission> RoleFormPermissions { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
+        // Propiedades alias para acceso singular (compatibilidad con código existente)
+        public DbSet<User> User => Users;
+        public DbSet<Role> Role => Roles;
+        public DbSet<UserRole> UserRole => UserRoles;
+        public DbSet<RefreshToken> RefreshToken => RefreshTokens;
+
         /// <summary>
         /// Configura los modelos de la base de datos con todas las relaciones.
         /// </summary>

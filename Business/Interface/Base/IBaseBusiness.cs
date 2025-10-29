@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Business.Interface.BaseBusiness
+namespace ModelSecurityRepaso.Business.Interface.Base
 {
     /// <summary>
     /// Interfaz genérica para la lógica de negocio sobre cualquier entidad.
@@ -30,6 +30,11 @@ namespace Business.Interface.BaseBusiness
         /// Agrega una nueva entidad a la base de datos.
         /// </summary>
         Task AddAsync(T entity);
+
+        /// <summary>
+        /// Crea una nueva entidad en la base de datos y devuelve la entidad creada.
+        /// </summary>
+        Task<T> CreateAsync(T entity);
 
         /// <summary>
         /// Actualiza una entidad existente en la base de datos.

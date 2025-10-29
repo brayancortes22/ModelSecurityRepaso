@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Utilities.Security;
-using Entity.Context;
-using Entity.Model;
+using ModelSecurityRepaso.Utilities.Security;
+using ModelSecurityRepaso.Entity.Context;
+using ModelSecurityRepaso.Entity.Model;
 
-namespace Web.Controllers
+namespace ModelSecurityRepaso.Web.Controllers
 {
     /// <summary>
     /// Controlador para autenticación y gestión de tokens JWT.

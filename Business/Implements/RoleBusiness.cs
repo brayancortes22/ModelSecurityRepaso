@@ -1,5 +1,6 @@
 using ModelSecurityRepaso.Entity.Model;
 using ModelSecurityRepaso.Business.Implements.Base;
+using ModelSecurityRepaso.Business.Interface;
 using ModelSecurityRepaso.Data.Implements;
 
 namespace ModelSecurityRepaso.Business.Implements
@@ -8,7 +9,7 @@ namespace ModelSecurityRepaso.Business.Implements
     /// Lógica de negocio para operaciones con Role.
     /// Valida reglas de negocio antes de persistir.
     /// </summary>
-    public class RoleBusiness : BaseBusiness<Role>
+    public class RoleBusiness : BaseBusiness<Role>, IRoleBusiness
     {
         private readonly RoleData _roleData;
 

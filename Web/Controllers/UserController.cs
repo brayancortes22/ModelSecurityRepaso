@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Business.Interface;
-using Entity.Model;
+using ModelSecurityRepaso.Business.Interface;
+using ModelSecurityRepaso.Entity.Model;
 
-namespace Web.Controllers
+namespace ModelSecurityRepaso.Web.Controllers
 {
     /// <summary>
     /// Controlador base para gestionar usuarios.
@@ -84,8 +84,8 @@ namespace Web.Controllers
             try
             {
                 entity.Id = id;
-                var result = await _business.UpdateAsync(entity);
-                return Ok(result);
+                await _business.UpdateAsync(entity);
+                return Ok(entity);
             }
             catch (Exception ex)
             {
@@ -102,7 +102,11 @@ namespace Web.Controllers
         {
             try
             {
-                await _business.DeleteAsync(id);
+                var entity = await _business.GetByIdAsync(id);
+                if (entity == null)
+                    return NotFound();
+
+                await _business.DeleteAsync(entity);
                 return NoContent();
             }
             catch (Exception ex)

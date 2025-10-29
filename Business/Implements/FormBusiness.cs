@@ -1,5 +1,6 @@
 using ModelSecurityRepaso.Entity.Model;
 using ModelSecurityRepaso.Business.Implements.Base;
+using ModelSecurityRepaso.Business.Interface;
 using ModelSecurityRepaso.Data.Implements;
 
 namespace ModelSecurityRepaso.Business.Implements
@@ -8,7 +9,7 @@ namespace ModelSecurityRepaso.Business.Implements
     /// Lógica de negocio para operaciones con Form.
     /// Valida reglas de negocio antes de persistir.
     /// </summary>
-    public class FormBusiness : BaseBusiness<Form>
+    public class FormBusiness : BaseBusiness<Form>, IFormBusiness
     {
         private readonly FormData _formData;
 

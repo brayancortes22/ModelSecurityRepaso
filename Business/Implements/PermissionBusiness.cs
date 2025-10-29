@@ -1,5 +1,6 @@
 using ModelSecurityRepaso.Entity.Model;
 using ModelSecurityRepaso.Business.Implements.Base;
+using ModelSecurityRepaso.Business.Interface;
 using ModelSecurityRepaso.Data.Implements;
 
 namespace ModelSecurityRepaso.Business.Implements
@@ -8,7 +9,7 @@ namespace ModelSecurityRepaso.Business.Implements
     /// Lógica de negocio para operaciones con Permission.
     /// Valida reglas de negocio antes de persistir.
     /// </summary>
-    public class PermissionBusiness : BaseBusiness<Permission>
+    public class PermissionBusiness : BaseBusiness<Permission>, IPermissionBusiness
     {
         private readonly PermissionData _permissionData;
 

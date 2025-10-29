@@ -1,13 +1,13 @@
 using Microsoft.EntityFrameworkCore;
-using Entity.Context;
+using ModelSecurityRepaso.Entity.Context;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Utilities.Security;
-using Business.Implements;
-using Business.Interface;
-using Data.Implements;
+using ModelSecurityRepaso.Utilities.Security;
+using ModelSecurityRepaso.Business.Implements;
+using ModelSecurityRepaso.Business.Interface;
+using ModelSecurityRepaso.Data.Implements;
 
 // Cargar variables de entorno desde el archivo .env
 Env.Load();

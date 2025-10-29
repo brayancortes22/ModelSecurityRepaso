@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Web.Controllers.Interface.Base
+namespace ModelSecurityRepaso.Web.Controllers.Interface.Base
 {
     /// <summary>
     /// Interfaz para los controladores base con operaciones CRUD estándar.

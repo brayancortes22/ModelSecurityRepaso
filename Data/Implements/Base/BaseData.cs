@@ -1,4 +1,4 @@
-using Entity.Context;
+using ModelSecurityRepaso.Entity.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Data.Implements.BaseData
+namespace ModelSecurityRepaso.Data.Implements.Base
 {
     /// <summary>
     /// Clase base genérica para operaciones CRUD sobre cualquier entidad.
@@ -20,6 +20,8 @@ namespace Data.Implements.BaseData
     public class BaseData<T> where T : class
     {
         protected readonly ApplicationDbContext _context;
+
+        public ApplicationDbContext Context => _context;
 
         public BaseData(ApplicationDbContext context)
         {
