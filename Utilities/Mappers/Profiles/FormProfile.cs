@@ -1,11 +1,12 @@
 using AutoMapper;
 using ModelSecurityRepaso.Entity.Dto;
 using ModelSecurityRepaso.Entity.Model;
+using ModelSecurityRepaso.Entity.Dto.Response;
 
 namespace ModelSecurityRepaso.Utilities.Mappers.Profiles
 {
     /// <summary>
-    /// Perfil de mapeo para Form ↔ FormDto.
+    /// Perfil de mapeo para Form ↔ FormDto ↔ FormResponseDto.
     /// </summary>
     public class FormProfile : Profile
     {
@@ -13,6 +14,9 @@ namespace ModelSecurityRepaso.Utilities.Mappers.Profiles
         {
             CreateMap<Form, FormDto>()
                 .ReverseMap();
+
+            // Mapeo a Response DTO
+            CreateMap<Form, FormResponseDto>();
         }
     }
 }

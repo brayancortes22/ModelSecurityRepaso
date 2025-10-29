@@ -3,6 +3,7 @@ using ModelSecurityRepaso.Entity.Model;
 using ModelSecurityRepaso.Entity.Model.Base;
 using ModelSecurityRepaso.Entity.Dto;
 using ModelSecurityRepaso.Entity.Dto.Base;
+using ModelSecurityRepaso.Entity.Dto.Response;
 
 namespace ModelSecurityRepaso.Utilities.Mappers.Profiles
 {
@@ -15,6 +16,9 @@ namespace ModelSecurityRepaso.Utilities.Mappers.Profiles
         {
             // Mapeo de User a UserDto y viceversa (ReverseMap)
             CreateMap<User, UserDto>().ReverseMap();
+
+            // Mapeo de User a UserResponseDto (solo datos públicos)
+            CreateMap<User, UserResponseDto>();
         }
     }
 }

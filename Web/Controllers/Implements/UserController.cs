@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ModelSecurityRepaso.Business.Interface;
 using ModelSecurityRepaso.Entity.Model;
+using ModelSecurityRepaso.Entity.Dto;
+using ModelSecurityRepaso.Entity.Dto.Response;
+using AutoMapper;
 
 namespace ModelSecurityRepaso.Web.Controllers
 {
@@ -15,31 +18,35 @@ namespace ModelSecurityRepaso.Web.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserBusiness _business;
+        private readonly IMapper _mapper;
 
         /// <summary>
         /// Constructor del controlador de usuarios.
         /// </summary>
         /// <param name="business">Servicio de negocio para usuarios</param>
-        public UserController(IUserBusiness business)
+        /// <param name="mapper">Servicio de mapeo de AutoMapper</param>
+        public UserController(IUserBusiness business, IMapper mapper)
         {
             _business = business;
+            _mapper = mapper;
         }
 
         /// <summary>
         /// Obtiene todos los usuarios del sistema.
         /// </summary>
-        /// <returns>Lista de usuarios</returns>
+        /// <returns>Lista de usuarios (datos públicos)</returns>
         /// <response code="200">Lista de usuarios obtenida exitosamente</response>
         /// <response code="401">No autenticado</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<UserResponseDto>>> GetAll()
         {
             try
             {
                 var result = await _business.GetAllAsync();
-                return Ok(result);
+                var response = _mapper.Map<IEnumerable<UserResponseDto>>(result);
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -51,14 +58,15 @@ namespace ModelSecurityRepaso.Web.Controllers
         /// Obtiene un usuario por ID.
         /// </summary>
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<UserResponseDto>> GetById(int id)
         {
             try
             {
                 var result = await _business.GetByIdAsync(id);
                 if (result == null)
                     return NotFound();
-                return Ok(result);
+                var response = _mapper.Map<UserResponseDto>(result);
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -71,12 +79,14 @@ namespace ModelSecurityRepaso.Web.Controllers
         /// </summary>
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromBody] User entity)
+        public async Task<ActionResult<UserResponseDto>> Create([FromBody] UserDto dto)
         {
             try
             {
-                var result = await _business.CreateAsync(entity);
-                return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+                var entity = _mapper.Map<User>(dto);
+                await _business.AddAsync(entity);
+                var response = _mapper.Map<UserResponseDto>(entity);
+                return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
             }
             catch (Exception ex)
             {
@@ -89,13 +99,16 @@ namespace ModelSecurityRepaso.Web.Controllers
         /// </summary>
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update(int id, [FromBody] User entity)
+        public async Task<ActionResult<UserResponseDto>> Update(int id, [FromBody] UserDto dto)
         {
             try
             {
+                var entity = _mapper.Map<User>(dto);
                 entity.Id = id;
                 await _business.UpdateAsync(entity);
-                return Ok(entity);
+                var result = await _business.GetByIdAsync(id);
+                var response = _mapper.Map<UserResponseDto>(result);
+                return Ok(response);
             }
             catch (Exception ex)
             {

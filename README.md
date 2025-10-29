@@ -13,11 +13,12 @@ Documentación completa del sistema de seguridad empresarial implementado con **
 5. [🎯 Visión General](#-visión-general)
 6. [🏗️ Arquitectura por Capas](#️-arquitectura-por-capas)
 7. [🎓 Principios SOLID y Buenas Prácticas](#-principios-solid-y-buenas-prácticas)
-8. [📊 Modelo de Entidades (MER)](#-modelo-de-entidades-mer)
-9. [📁 Estructura de Carpetas](#-estructura-de-carpetas)
-10. [🔄 Flujo de Trabajo](#-flujo-de-trabajo)
-11. [🆕 Guía: Crear una Nueva Entidad](#-guía-crear-una-nueva-entidad)
-12. [⚙️ Guía: Métodos Personalizados](#️-guía-métodos-personalizados)
+8. [� DTOs: Data Transfer Objects](#-dtos-data-transfer-objects)
+9. [�📊 Modelo de Entidades (MER)](#-modelo-de-entidades-mer)
+10. [📁 Estructura de Carpetas](#-estructura-de-carpetas)
+11. [🔄 Flujo de Trabajo](#-flujo-de-trabajo)
+12. [🆕 Guía: Crear una Nueva Entidad](#-guía-crear-una-nueva-entidad)
+13. [⚙️ Guía: Métodos Personalizados](#️-guía-métodos-personalizados)
 13. [🔧 Configuración Multi-DB](#-configuración-multi-db)
 14. [📘 Ejemplos Prácticos](#-ejemplos-prácticos)
 15. [📚 Comandos Útiles](#-comandos-útiles)
@@ -478,6 +479,263 @@ public class User : BaseModel
         get { return _password; }
         set { _password = HashPassword(value); } // Valida al asignar
     }
+}
+```
+
+---
+
+## 📦 DTOs: Data Transfer Objects
+
+### ¿Qué son los DTOs?
+
+Los **DTOs (Data Transfer Objects)** son objetos simples que transportan datos entre capas de la aplicación. En este proyecto utilizamos dos tipos:
+
+1. **DTO (Input)**: Para recibir datos del cliente
+2. **Response DTO (Output)**: Para enviar datos al cliente
+
+### ¿Por qué usar DTOs?
+
+#### **Seguridad** 🔒
+Nunca expones datos sensibles al cliente:
+
+```csharp
+// DTO - Lo que el cliente ENVÍA
+public class UserDto
+{
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public string Password { get; set; }          // ✅ Se acepta
+    public int PersonId { get; set; }
+}
+
+// Response DTO - Lo que el servidor RETORNA
+public class UserResponseDto
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+    // ❌ Password NUNCA se retorna
+    public bool IsActive { get; set; }
+    public DateTime CreatedAt { get; set; }
+}
+```
+
+#### **Flexibilidad** 🔄
+Cambias la estructura interna sin afectar el API:
+
+```csharp
+// La entidad interna cambia
+public class User
+{
+    public string PasswordHash { get; set; }      // Cambio interno
+    public byte[] PasswordSalt { get; set; }      // Cambio interno
+    public string FullName { get; set; }          // Cambio interno
+}
+
+// El Response DTO sigue siendo el mismo
+public class UserResponseDto
+{
+    public string Name { get; set; }              // Cliente sigue recibiendo lo mismo ✅
+}
+```
+
+#### **Validación diferenciada** ✅
+```csharp
+// DTO - Valida entrada del cliente
+public class UserDto
+{
+    [Required(ErrorMessage = "El nombre es obligatorio")]
+    [StringLength(100)]
+    public string Name { get; set; }
+
+    [Required]
+    [EmailAddress(ErrorMessage = "Email inválido")]
+    public string Email { get; set; }
+
+    [Required(ErrorMessage = "La contraseña es obligatoria")]
+    [MinLength(8, ErrorMessage = "Mínimo 8 caracteres")]
+    public string Password { get; set; }
+}
+
+// Response DTO - No necesita validación
+public class UserResponseDto
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+    // Sin password, sin validación
+}
+```
+
+#### **Performance** ⚡
+Solo envías los datos necesarios:
+
+```csharp
+// ❌ Sin Response DTO - Expone relaciones pesadas
+{
+  "id": 1,
+  "name": "Juan",
+  "password": "...",
+  "userRoles": [        // ← Relación pesada
+    { "id": 1, "roleId": 1, ... },
+    { "id": 2, "roleId": 2, ... }
+  ],
+  "refreshTokens": [    // ← Relación pesada
+    { "token": "...", "expiryDate": "..." }
+  ]
+}
+
+// ✅ Con Response DTO - Solo lo necesario
+{
+  "id": 1,
+  "name": "Juan",
+  "email": "juan@example.com",
+  "isActive": true,
+  "createdAt": "2025-10-29T20:00:00"
+}
+```
+
+### Flujo de Datos con DTOs
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ REQUEST - Cliente envía DTO                                  │
+├──────────────────────────────────────────────────────────────┤
+│                                                               │
+│  POST /api/user                                              │
+│  {                                                           │
+│    "name": "Juan",                  ← DTO Input             │
+│    "email": "juan@example.com",                             │
+│    "password": "secreto123"                                 │
+│  }                                                           │
+│                                                               │
+│  ↓ Validación, mapeo a entidad                              │
+│                                                               │
+│  Entidad User creada y guardada en BD                        │
+│                                                               │
+│  ↓ Mapeo a Response DTO                                      │
+│                                                               │
+└──────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────┐
+│ RESPONSE - Servidor envía Response DTO                       │
+├──────────────────────────────────────────────────────────────┤
+│                                                               │
+│  201 Created                                                 │
+│  {                                                           │
+│    "id": 5,                         ← Response DTO          │
+│    "name": "Juan",                                          │
+│    "email": "juan@example.com",                             │
+│    "isActive": true,                                        │
+│    "createdAt": "2025-10-29T20:00:00"                       │
+│  }                                                           │
+│  ❌ Sin password                                            │
+│  ❌ Sin relaciones                                          │
+│                                                               │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### Estructura de DTOs en el Proyecto
+
+```
+Entity/Dto/
+├── UserDto.cs                    ← DTO Input
+├── PersonDto.cs
+├── RoleDto.cs
+├── PermissionDto.cs
+├── FormDto.cs
+├── ModuleDto.cs
+├── FormModuleDto.cs
+├── UserRolDto.cs
+├── RoleFormPermissionDto.cs
+├── RefreshTokenDto.cs
+└── Response/                      ← DTOs Output
+    ├── UserResponseDto.cs
+    ├── PersonResponseDto.cs
+    ├── RoleResponseDto.cs
+    ├── PermissionResponseDto.cs
+    ├── FormResponseDto.cs
+    ├── ModuleResponseDto.cs
+    ├── FormModuleResponseDto.cs
+    ├── UserRoleResponseDto.cs
+    ├── RoleFormPermissionResponseDto.cs
+    └── RefreshTokenResponseDto.cs
+```
+
+### Mapeo de DTOs con AutoMapper
+
+```csharp
+// En UserProfile.cs
+public class UserProfile : Profile
+{
+    public UserProfile()
+    {
+        // Input: Entity ↔ DTO
+        CreateMap<User, UserDto>().ReverseMap();
+
+        // Output: Entity → Response DTO
+        CreateMap<User, UserResponseDto>();
+    }
+}
+```
+
+### Uso en Controladores
+
+```csharp
+[HttpPost]
+public async Task<ActionResult<UserResponseDto>> Create([FromBody] UserDto dto)
+{
+    var result = await _business.CreateAsync(dto);                      // ← DTO Input
+    var response = _mapper.Map<UserResponseDto>(result);                // ← Mapeo a Response DTO
+    return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
+}
+
+[HttpGet("{id}")]
+public async Task<ActionResult<UserResponseDto>> GetById(int id)
+{
+    var result = await _business.GetByIdAsync(id);
+    var response = _mapper.Map<UserResponseDto>(result);                // ← Mapeo a Response DTO
+    return Ok(response);
+}
+```
+
+### Comparativa: Con vs Sin Response DTOs
+
+| Aspecto | **Sin Response DTO** | **Con Response DTO** |
+|---------|----------------------|----------------------|
+| Seguridad | ❌ Expone password | ✅ Solo datos públicos |
+| Flexibilidad | ❌ Acoplado a BD | ✅ Desacoplado |
+| Versionamiento | ❌ Difícil | ✅ Fácil (v1, v2) |
+| Performance | ❌ Datos innecesarios | ✅ Optimizado |
+| Mantenibilidad | ❌ Alto impacto | ✅ Bajo impacto |
+
+### Buenas Prácticas
+
+✅ **HACER:**
+- Crear Response DTOs específicos por endpoint
+- Validar DTOs de entrada con Data Annotations
+- Mapear siempre a Response DTOs antes de retornar
+- Mantener DTOs simples y sin lógica
+
+❌ **NO HACER:**
+- Retornar entidades directamente
+- Incluir relaciones complejas en DTOs
+- Exponer campos sensibles
+- Mezclar lógica de negocio en DTOs
+
+---
+
+## 📊 Modelo de Entidades (MER)
+
+### Diagrama Conceptual
+
+```mermaid
+erDiagram
+    PERSON ||--o| USER : "1:1"
+    USER ||--o{ USER-ROLE : "1:N"
+    ROLE ||--o{ USER-ROLE : "1:N"
+    ROLE ||--o{ ROLE-FORM-PERMISSION : "1:N"
+````
 }
 ```
 

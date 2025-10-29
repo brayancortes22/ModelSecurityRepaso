@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ModelSecurityRepaso.Business.Interface;
 using ModelSecurityRepaso.Entity.Model;
+using ModelSecurityRepaso.Entity.Dto;
+using ModelSecurityRepaso.Entity.Dto.Response;
+using AutoMapper;
 
 namespace ModelSecurityRepaso.Web.Controllers
 {
@@ -14,22 +17,25 @@ namespace ModelSecurityRepaso.Web.Controllers
     public class PersonController : ControllerBase
     {
         private readonly IPersonBusiness _business;
+        private readonly IMapper _mapper;
 
-        public PersonController(IPersonBusiness business)
+        public PersonController(IPersonBusiness business, IMapper mapper)
         {
             _business = business;
+            _mapper = mapper;
         }
 
         /// <summary>
         /// Obtiene todas las personas.
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<PersonResponseDto>>> GetAll()
         {
             try
             {
                 var result = await _business.GetAllAsync();
-                return Ok(result);
+                var response = _mapper.Map<IEnumerable<PersonResponseDto>>(result);
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -41,14 +47,15 @@ namespace ModelSecurityRepaso.Web.Controllers
         /// Obtiene una persona por ID.
         /// </summary>
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<PersonResponseDto>> GetById(int id)
         {
             try
             {
                 var result = await _business.GetByIdAsync(id);
                 if (result == null)
                     return NotFound();
-                return Ok(result);
+                var response = _mapper.Map<PersonResponseDto>(result);
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -61,12 +68,14 @@ namespace ModelSecurityRepaso.Web.Controllers
         /// </summary>
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromBody] Person entity)
+        public async Task<ActionResult<PersonResponseDto>> Create([FromBody] PersonDto dto)
         {
             try
             {
+                var entity = _mapper.Map<Person>(dto);
                 await _business.AddAsync(entity);
-                return CreatedAtAction(nameof(GetById), new { id = entity.Id }, entity);
+                var response = _mapper.Map<PersonResponseDto>(entity);
+                return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
             }
             catch (Exception ex)
             {
@@ -79,13 +88,16 @@ namespace ModelSecurityRepaso.Web.Controllers
         /// </summary>
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Update(int id, [FromBody] Person entity)
+        public async Task<ActionResult<PersonResponseDto>> Update(int id, [FromBody] PersonDto dto)
         {
             try
             {
+                var entity = _mapper.Map<Person>(dto);
                 entity.Id = id;
                 await _business.UpdateAsync(entity);
-                return Ok(entity);
+                var result = await _business.GetByIdAsync(id);
+                var response = _mapper.Map<PersonResponseDto>(result);
+                return Ok(response);
             }
             catch (Exception ex)
             {

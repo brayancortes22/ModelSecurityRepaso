@@ -12,6 +12,7 @@ using ModelSecurityRepaso.Data.Implements;
 using ModelSecurityRepaso.Data.Interface;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using ModelSecurityRepaso.Web.Data;
 
 // Cargar variables de entorno desde el archivo .env
 Env.Load();
@@ -215,6 +216,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// ========================================
+// Inicializar Base de Datos con Datos de Prueba
+// ========================================
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    DatabaseSeeder.Initialize(dbContext);
+}
 
 // ========================================
 // Middleware de Autenticación y Autorización
