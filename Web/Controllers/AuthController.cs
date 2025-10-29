@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using ModelSecurityRepaso.Utilities.Security;
+using ModelSecurityRepaso.Business.Interface.Security;
 using ModelSecurityRepaso.Entity.Context;
 using ModelSecurityRepaso.Entity.Model;
 
