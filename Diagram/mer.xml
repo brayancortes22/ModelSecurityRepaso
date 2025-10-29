@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="MER">
+    <mxGraphModel dx="1200" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- Person -->
+        <mxCell id="person" value="" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=0;strokeColor=default;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="220" height="246" as="geometry" />
+          <mxCell id="person.title" value="Person" style="tableTitle" vertex="1" parent="person">
+            <mxGeometry x="0" y="0" width="220" height="30" as="geometry" />
+          </mxCell>
+          <mxCell id="person.pk" value="PK Id : int" style="tableRow;fontStyle=1;html=1;" vertex="1" parent="person">
+            <mxGeometry x="0" y="30" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="person.firstname" value="FirstName : string" style="tableRow;html=1;" vertex="1" parent="person">
+            <mxGeometry x="0" y="54" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="person.secondname" value="SecondName : string?" style="tableRow;html=1;" vertex="1" parent="person">
+            <mxGeometry x="0" y="78" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="person.lastname" value="LastName : string" style="tableRow;html=1;" vertex="1" parent="person">
+            <mxGeometry x="0" y="102" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="person.lastsecondname" value="LastSecondName : string?" style="tableRow;html=1;" vertex="1" parent="person">
+            <mxGeometry x="0" y="126" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="person.typedoc" value="TypeDocument : string" style="tableRow;html=1;" vertex="1" parent="person">
+            <mxGeometry x="0" y="150" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="person.numberdoc" value="NumberDocument : int" style="tableRow;html=1;" vertex="1" parent="person">
+            <mxGeometry x="0" y="174" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="person.phone" value="Phone : string" style="tableRow;html=1;" vertex="1" parent="person">
+            <mxGeometry x="0" y="198" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="person.address" value="Address : string" style="tableRow;html=1;" vertex="1" parent="person">
+            <mxGeometry x="0" y="222" width="220" height="24" as="geometry" />
+          </mxCell>
+        </mxCell>
+        <!-- User -->
+        <mxCell id="user" value="" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=0;strokeColor=default;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="40" width="220" height="150" as="geometry" />
+          <mxCell id="user.title" value="User" style="tableTitle" vertex="1" parent="user">
+            <mxGeometry x="0" y="0" width="220" height="30" as="geometry" />
+          </mxCell>
+          <mxCell id="user.pk" value="PK Id : int" style="tableRow;fontStyle=1;html=1;" vertex="1" parent="user">
+            <mxGeometry x="0" y="30" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="user.name" value="Name : string" style="tableRow;html=1;" vertex="1" parent="user">
+            <mxGeometry x="0" y="54" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="user.email" value="Email : string" style="tableRow;html=1;" vertex="1" parent="user">
+            <mxGeometry x="0" y="78" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="user.password" value="Password : string" style="tableRow;html=1;" vertex="1" parent="user">
+            <mxGeometry x="0" y="102" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="user.personFK" value="FK PersonId : int" style="tableRow;html=1;fontStyle=2;" vertex="1" parent="user">
+            <mxGeometry x="0" y="126" width="220" height="24" as="geometry" />
+          </mxCell>
+        </mxCell>
+        <!-- Role -->
+        <mxCell id="role" value="" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=0;strokeColor=default;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="600" y="40" width="220" height="126" as="geometry" />
+          <mxCell id="role.title" value="Role" style="tableTitle" vertex="1" parent="role">
+            <mxGeometry x="0" y="0" width="220" height="30" as="geometry" />
+          </mxCell>
+          <mxCell id="role.pk" value="PK Id : int" style="tableRow;fontStyle=1;html=1;" vertex="1" parent="role">
+            <mxGeometry x="0" y="30" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="role.name" value="Name : string" style="tableRow;html=1;" vertex="1" parent="role">
+            <mxGeometry x="0" y="54" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="role.description" value="Description : string" style="tableRow;html=1;" vertex="1" parent="role">
+            <mxGeometry x="0" y="78" width="220" height="24" as="geometry" />
+          </mxCell>
+        </mxCell>
+        <!-- UserRole -->
+        <mxCell id="userrole" value="" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=0;strokeColor=default;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="460" y="220" width="220" height="126" as="geometry" />
+          <mxCell id="userrole.title" value="UserRole" style="tableTitle" vertex="1" parent="userrole">
+            <mxGeometry x="0" y="0" width="220" height="30" as="geometry" />
+          </mxCell>
+          <mxCell id="userrole.pk" value="PK Id : int" style="tableRow;fontStyle=1;html=1;" vertex="1" parent="userrole">
+            <mxGeometry x="0" y="30" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="userrole.userFK" value="FK UserId : int" style="tableRow;html=1;fontStyle=2;" vertex="1" parent="userrole">
+            <mxGeometry x="0" y="54" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="userrole.roleFK" value="FK RoleId : int" style="tableRow;html=1;fontStyle=2;" vertex="1" parent="userrole">
+            <mxGeometry x="0" y="78" width="220" height="24" as="geometry" />
+          </mxCell>
+        </mxCell>
+        <!-- Form -->
+        <mxCell id="form" value="" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=0;strokeColor=default;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="320" width="220" height="126" as="geometry" />
+          <mxCell id="form.title" value="Form" style="tableTitle" vertex="1" parent="form">
+            <mxGeometry x="0" y="0" width="220" height="30" as="geometry" />
+          </mxCell>
+          <mxCell id="form.pk" value="PK Id : int" style="tableRow;fontStyle=1;html=1;" vertex="1" parent="form">
+            <mxGeometry x="0" y="30" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="form.name" value="Name : string" style="tableRow;html=1;" vertex="1" parent="form">
+            <mxGeometry x="0" y="54" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="form.description" value="Description : string" style="tableRow;html=1;" vertex="1" parent="form">
+            <mxGeometry x="0" y="78" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="form.url" value="Url : string" style="tableRow;html=1;" vertex="1" parent="form">
+            <mxGeometry x="0" y="102" width="220" height="24" as="geometry" />
+          </mxCell>
+        </mxCell>
+        <!-- FormModule -->
+        <mxCell id="formmodule" value="" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=0;strokeColor=default;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="320" width="220" height="126" as="geometry" />
+          <mxCell id="formmodule.title" value="FormModule" style="tableTitle" vertex="1" parent="formmodule">
+            <mxGeometry x="0" y="0" width="220" height="30" as="geometry" />
+          </mxCell>
+          <mxCell id="formmodule.pk" value="PK Id : int" style="tableRow;fontStyle=1;html=1;" vertex="1" parent="formmodule">
+            <mxGeometry x="0" y="30" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="formmodule.name" value="Name : string" style="tableRow;html=1;" vertex="1" parent="formmodule">
+            <mxGeometry x="0" y="54" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="formmodule.moduleFK" value="FK ModuleId : int" style="tableRow;html=1;fontStyle=2;" vertex="1" parent="formmodule">
+            <mxGeometry x="0" y="78" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="formmodule.formFK" value="FK FormId : int" style="tableRow;html=1;fontStyle=2;" vertex="1" parent="formmodule">
+            <mxGeometry x="0" y="102" width="220" height="24" as="geometry" />
+          </mxCell>
+        </mxCell>
+        <!-- Module -->
+        <mxCell id="module" value="" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=0;strokeColor=default;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="600" y="320" width="220" height="126" as="geometry" />
+          <mxCell id="module.title" value="Module" style="tableTitle" vertex="1" parent="module">
+            <mxGeometry x="0" y="0" width="220" height="30" as="geometry" />
+          </mxCell>
+          <mxCell id="module.pk" value="PK Id : int" style="tableRow;fontStyle=1;html=1;" vertex="1" parent="module">
+            <mxGeometry x="0" y="30" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="module.name" value="Name : string" style="tableRow;html=1;" vertex="1" parent="module">
+            <mxGeometry x="0" y="54" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="module.description" value="Description : string" style="tableRow;html=1;" vertex="1" parent="module">
+            <mxGeometry x="0" y="78" width="220" height="24" as="geometry" />
+          </mxCell>
+        </mxCell>
+        <!-- Permission -->
+        <mxCell id="permission" value="" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=0;strokeColor=default;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="520" width="220" height="126" as="geometry" />
+          <mxCell id="permission.title" value="Permission" style="tableTitle" vertex="1" parent="permission">
+            <mxGeometry x="0" y="0" width="220" height="30" as="geometry" />
+          </mxCell>
+          <mxCell id="permission.pk" value="PK Id : int" style="tableRow;fontStyle=1;html=1;" vertex="1" parent="permission">
+            <mxGeometry x="0" y="30" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="permission.name" value="Name : string" style="tableRow;html=1;" vertex="1" parent="permission">
+            <mxGeometry x="0" y="54" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="permission.description" value="Description : string" style="tableRow;html=1;" vertex="1" parent="permission">
+            <mxGeometry x="0" y="78" width="220" height="24" as="geometry" />
+          </mxCell>
+        </mxCell>
+        <!-- RoleFormPermission -->
+        <mxCell id="roleformpermission" value="" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=0;strokeColor=default;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="520" width="220" height="150" as="geometry" />
+          <mxCell id="roleformpermission.title" value="RoleFormPermission" style="tableTitle" vertex="1" parent="roleformpermission">
+            <mxGeometry x="0" y="0" width="220" height="30" as="geometry" />
+          </mxCell>
+          <mxCell id="roleformpermission.pk" value="PK Id : int" style="tableRow;fontStyle=1;html=1;" vertex="1" parent="roleformpermission">
+            <mxGeometry x="0" y="30" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="roleformpermission.roleFK" value="FK RoleId : int" style="tableRow;html=1;fontStyle=2;" vertex="1" parent="roleformpermission">
+            <mxGeometry x="0" y="54" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="roleformpermission.formFK" value="FK FormId : int" style="tableRow;html=1;fontStyle=2;" vertex="1" parent="roleformpermission">
+            <mxGeometry x="0" y="78" width="220" height="24" as="geometry" />
+          </mxCell>
+          <mxCell id="roleformpermission.permissionFK" value="FK PermissionId : int" style="tableRow;html=1;fontStyle=2;" vertex="1" parent="roleformpermission">
+            <mxGeometry x="0" y="102" width="220" height="24" as="geometry" />
+          </mxCell>
+        </mxCell>
+        <!-- Relaciones -->
+        <mxCell id="edge_person_user" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;endArrow=block;" edge="1" parent="1" source="person" target="user">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_user_userrole" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;endArrow=block;" edge="1" parent="1" source="user" target="userrole">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_role_userrole" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;exitPerimeter=1;entryX=1;entryY=0.5;entryPerimeter=1;endArrow=block;" edge="1" parent="1" source="role" target="userrole">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_form_formmodule" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;endArrow=block;" edge="1" parent="1" source="form" target="formmodule">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_formmodule_module" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;exitPerimeter=1;entryX=0;entryY=0.5;entryPerimeter=1;endArrow=block;" edge="1" parent="1" source="formmodule" target="module">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_role_roleformpermission" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;endArrow=block;" edge="1" parent="1" source="role" target="roleformpermission">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_form_roleformpermission" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;endArrow=block;" edge="1" parent="1" source="form" target="roleformpermission">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_permission_roleformpermission" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;exitPerimeter=1;entryX=0.5;entryY=0;entryPerimeter=1;endArrow=block;" edge="1" parent="1" source="permission" target="roleformpermission">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

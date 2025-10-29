@@ -27,5 +27,10 @@
       "useSSL": true
     }
   },
-  "$schema": "https://json.schemastore.org/launchsettings.json"
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "ConnectionStrings": {
+    "MySqlConnection": "server=localhost;database=tu_db_mysql;user=usuario;password=clave;",
+    "PostgresConnection": "Host=localhost;Database=tu_db_pg;Username=usuario;Password=clave",
+    "SqlServerConnection": "Server=localhost;Database=tu_db_sql;User Id=usuario;Password=clave;TrustServerCertificate=True;"
+  }
 }

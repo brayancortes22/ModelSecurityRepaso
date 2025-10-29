@@ -58,5 +58,10 @@ secrets.json
 appsettings.*.Local.json
 *.usersecrets
 
+# archivos de entorno
+.env
+.env.*
+
+
 # Mantener archivos .getkeep si los usas para forzar directorios vacíos
 !**/.getkeep
