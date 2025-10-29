@@ -62,6 +62,7 @@ appsettings.*.Local.json
 .env
 .env.*
 
-
+# git changes
+CHANGELOG.md
 # Mantener archivos .getkeep si los usas para forzar directorios vacíos
 !**/.getkeep

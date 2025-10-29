@@ -9,6 +9,8 @@ using ModelSecurityRepaso.Business.Implements.Security;
 using ModelSecurityRepaso.Business.Implements;
 using ModelSecurityRepaso.Business.Interface;
 using ModelSecurityRepaso.Data.Implements;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 // Cargar variables de entorno desde el archivo .env
 Env.Load();
@@ -102,6 +104,63 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+// ========================================
+// Swagger/OpenAPI Configuration
+// ========================================
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Model Security API",
+        Version = "v1",
+        Description = "API para gestión de seguridad con autenticación JWT y control de roles",
+        Contact = new OpenApiContact
+        {
+            Name = "Equipo de Desarrollo",
+            Email = "dev@example.com"
+        },
+        License = new OpenApiLicense
+        {
+            Name = "MIT"
+        }
+    });
+
+    // Configurar autenticación JWT en Swagger
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Por favor ingresa un token JWT válido con el prefijo 'Bearer'",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
+        }
+    });
+
+    // Incluir comentarios XML si existen
+    var xmlFilename = $"{typeof(Program).Assembly.GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
+    if (File.Exists(xmlPath))
+    {
+        options.IncludeXmlComments(xmlPath);
+    }
+});
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddCors(options =>
@@ -120,6 +179,16 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    // Habilitar Swagger en desarrollo
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Model Security API v1");
+        options.RoutePrefix = "swagger"; // URL: https://localhost:xxxx/swagger
+        options.DefaultModelsExpandDepth(2);
+        options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List);
+    });
+
     app.MapOpenApi();
 }
 

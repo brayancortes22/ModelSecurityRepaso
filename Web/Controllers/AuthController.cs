@@ -8,6 +8,7 @@ namespace ModelSecurityRepaso.Web.Controllers
 {
     /// <summary>
     /// Controlador para autenticación y gestión de tokens JWT.
+    /// Proporciona endpoints para login, refresh de tokens y revocación.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -16,6 +17,11 @@ namespace ModelSecurityRepaso.Web.Controllers
         private readonly IJwtTokenService _jwtService;
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Constructor del controlador de autenticación.
+        /// </summary>
+        /// <param name="jwtService">Servicio para gestión de tokens JWT</param>
+        /// <param name="context">Contexto de base de datos</param>
         public AuthController(IJwtTokenService jwtService, ApplicationDbContext context)
         {
             _jwtService = jwtService;
@@ -23,9 +29,17 @@ namespace ModelSecurityRepaso.Web.Controllers
         }
 
         /// <summary>
-        /// Genera un token JWT basado en credenciales de usuario.
+        /// Autentica un usuario y genera un token JWT de acceso y un refresh token.
         /// </summary>
+        /// <param name="request">Credenciales del usuario (email y contraseña)</param>
+        /// <returns>Token de acceso JWT, refresh token y tiempo de expiración</returns>
+        /// <response code="200">Autenticación exitosa. Retorna tokens.</response>
+        /// <response code="400">Solicitud inválida o parámetros faltantes</response>
+        /// <response code="401">Credenciales inválidas</response>
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
@@ -74,7 +88,15 @@ namespace ModelSecurityRepaso.Web.Controllers
         /// <summary>
         /// Renueva un token JWT usando un refresh token válido.
         /// </summary>
+        /// <param name="request">El refresh token previamente generado</param>
+        /// <returns>Un nuevo token de acceso JWT</returns>
+        /// <response code="200">Nuevo token generado exitosamente</response>
+        /// <response code="400">Refresh token no proporcionado</response>
+        /// <response code="401">Refresh token inválido, revocado o expirado</response>
         [HttpPost("refresh")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request)
         {
             if (string.IsNullOrEmpty(request.RefreshToken))
@@ -118,9 +140,17 @@ namespace ModelSecurityRepaso.Web.Controllers
         }
 
         /// <summary>
-        /// Revoca un refresh token específico.
+        /// Revoca un refresh token específico, invalidándolo para futuros usos.
         /// </summary>
+        /// <param name="request">El refresh token a revocar</param>
+        /// <returns>Confirmación de revocación</returns>
+        /// <response code="200">Refresh token revocado exitosamente</response>
+        /// <response code="400">Refresh token no proporcionado</response>
+        /// <response code="404">Refresh token no encontrado</response>
         [HttpPost("revoke")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Revoke([FromBody] RefreshTokenRequest request)
         {
             if (string.IsNullOrEmpty(request.RefreshToken))

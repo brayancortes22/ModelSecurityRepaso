@@ -6,7 +6,8 @@ using ModelSecurityRepaso.Entity.Model;
 namespace ModelSecurityRepaso.Web.Controllers
 {
     /// <summary>
-    /// Controlador base para gestionar usuarios.
+    /// Controlador para gestión de usuarios.
+    /// Proporciona endpoints CRUD con autenticación y autorización por roles.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -15,15 +16,24 @@ namespace ModelSecurityRepaso.Web.Controllers
     {
         private readonly IUserBusiness _business;
 
+        /// <summary>
+        /// Constructor del controlador de usuarios.
+        /// </summary>
+        /// <param name="business">Servicio de negocio para usuarios</param>
         public UserController(IUserBusiness business)
         {
             _business = business;
         }
 
         /// <summary>
-        /// Obtiene todos los usuarios.
+        /// Obtiene todos los usuarios del sistema.
         /// </summary>
+        /// <returns>Lista de usuarios</returns>
+        /// <response code="200">Lista de usuarios obtenida exitosamente</response>
+        /// <response code="401">No autenticado</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetAll()
         {
             try
